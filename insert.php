@@ -2,15 +2,16 @@
     if(isset($_REQUEST['user'])){
         $sender = $_REQUEST['user'];
         $msg = $_REQUEST['msg'];
+        $receiver = $_REQUEST['receiver'];
 
         $dsn = 'mysql:host=localhost;dbname=chat_app';
         $pdo = new PDO($dsn,'root','');
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
 
-        $sql = "INSERT into chats values(?,?,?)";
+        $sql = "INSERT into chats values(?,?,?,?)";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([NULL,$msg,$sender]);
+        $stmt->execute([NULL,$msg,$sender,$receiver]);
 
         $n = $stmt->rowCount();
         if($n){
@@ -32,21 +33,30 @@
 
         if($row = $stmt->fetchAll()){
             foreach($row as $r){
-                echo "<p>$r->user</p>";
+                echo "<p class='personal'>$r->user</p>";
             }
         }
     }
     else if($_REQUEST['p']){
         $person = $_REQUEST['p'];
+        $receiver = $_REQUEST['r'];
 
         $dsn = 'mysql:host=localhost;dbname=chat_app';
         $pdo = new PDO($dsn,'root','');
         $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
 
-        $sql = "SELECT * from chats";
+        if($receiver == 'Group'){
+            $sql = "SELECT * from chats where receiver=?";
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$receiver]);
+        }
+        else{
+            $sql = "SELECT * from chats where (receiver=? and sender=?) or (sender=? and receiver=?)";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$person,$receiver,$person,$receiver]);
+        }
 
         $row = $stmt->fetchAll();
 

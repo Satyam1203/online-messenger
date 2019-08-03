@@ -6,50 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <title>Document</title>
-    <style>
-        .form{
-            width:40%;
-            height:500px;
-            margin:auto;
-            margin-top:100px;
-            border:1px solid grey;
-            box-shadow:1px 2px 3px #333 ;
-            text-align:center;
-        }
-        #signup{
-            display:none;   
-        }
-        .form h2{
-            color:green;
-        }
-        form{
-            padding:5em;
-        }
-        input{
-            border:0;
-            font-weight:500;
-            font-size:1.1em;
-            border-bottom:2px solid grey;
-            padding:5px;
-            text-align:center;
-        }
-        header h1{
-            width:60%;
-            float:left;
-            font-weight:550;
-        }
-        a{
-            cursor:pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="bootstrap/fonts/glyphicons-halflings-regular.svg">
+    <title>Chatbox - The Online Chat App</title>
 </head>
 <body>
+
     <header class="container">
-        <h1>Chatbox</h1>
-        <button class="sign">signup</button>
-        <button class="log">login</button>
-    </header> 
+        <h1><span class="glyphicon glyphicon-envelope"></span> &nbsp;Chatbox</h1>
+        <a class="sign">SignUp</a>
+        <a class="log">LogIn</a>
+    </header>
+    <?php
+        session_start();
+        if(isset($_SESSION['user'])){
+            echo "<script>window.location = 'index.php'</script>";
+        }
+    ?>
     <div class="form">
         <div id="signup">
             <h2>SignUp</h2>
@@ -83,7 +55,7 @@
             ?>
         </div>
         <div id="login">
-                <h2>Login</h2>
+                <h2>LogIn</h2>
             <form action="" method="POST">
                 <input type="text" name="user2" id="user" placeholder="username"><br><br>
                 <input type="password" name="pwd2" id="pwd" placeholder="password"><br><br>
@@ -96,7 +68,7 @@
                 if(isset($_REQUEST['user2'])){
                     $user = $_REQUEST['user2'];
                     $pwd = md5($_REQUEST['pwd2']);
-            
+
 
                     $dsn = 'mysql:host=localhost;dbname=chat_app';
                     $pdo = new PDO($dsn,'root','');

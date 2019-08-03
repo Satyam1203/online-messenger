@@ -1,0 +1,81 @@
+body{
+    background: #ddd url(assets/bg_home.jpeg) no-repeat;
+    background-size:cover;
+}
+.form{
+    width:40%;
+    height:500px;
+    margin:auto;
+    margin-top:100px;
+    border:1px solid grey;
+    box-shadow:1px 2px 3px #333 ;
+    text-align:center;
+    background-color:#fff;
+    /* z-index:2; */
+}
+@media screen and (max-width:1200px){
+    .form{
+        width:70%;
+    }
+}
+@media screen and (max-width:900px){
+    .form{
+        width:60%;
+    }
+}
+#signup{
+    display:none;
+}
+.form h2{
+    padding:1em;
+    color:green;
+}
+form{
+    padding:5em;
+}
+@media screen and (max-width:600px){
+    .form{
+        width:100%;
+        padding:20px;
+    }
+    form{
+        padding:2em;
+    }
+}
+input{
+    border:0;
+    font-weight:500;
+    font-size:1.1em;
+    border-bottom:2px solid grey;
+    padding:5px;
+    text-align:center;
+}
+header h1{
+    width:60%;
+    float:left;
+    font-weight:550;
+}
+header a{
+    float:right;
+    font-weight:600;
+    color:#888;
+    margin:1em;
+    text-decoration:none;
+    padding:1em;
+    font-size:1.1em;
+    cursor:pointer;
+}
+header a:hover{
+    background-color:#eee;
+    color:green;
+    text-decoration:none;
+}
+@media screen and (max-width:600px){
+    header a{
+        padding:1em 0px;
+        margin:1em 0.5em;
+    }
+}
+a{
+    cursor:pointer;
+}
